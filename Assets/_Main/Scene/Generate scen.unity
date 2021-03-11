@@ -152,8 +152,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 10
   height: 13
-  startIndexMaze: 12
-  genCount: 100
+  startIndexMaze: 301
+  genCount: 699
   prefixName: 'Maze '
   savingPath: Assets/_Data/
 --- !u!4 &1584303174
