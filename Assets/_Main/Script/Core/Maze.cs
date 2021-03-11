@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Maze : MonoBehaviour
 {
@@ -45,9 +46,9 @@ public class Maze : MonoBehaviour
 			}
 		}
 
-		SpawnEntity(bugPrefab, 0, 0);
+		bug = SpawnEntity(bugPrefab, 0, 0);
 
-		SpawnEntity(targetDoorPrefab, mazeData.targetDoorPos % mazeData.width, mazeData.targetDoorPos / mazeData.width);
+		targetDoor = SpawnEntity(targetDoorPrefab, mazeData.targetDoorPos % mazeData.width, mazeData.targetDoorPos / mazeData.width);
 	}
 
 	public GameObject SpawnEntity(GameObject prefab, int x, int y)
@@ -59,12 +60,29 @@ public class Maze : MonoBehaviour
 		return clone;
 	}
 
+	public Vector3 GetPositionCell(int n)
+	{
+		return new Vector3(n % mazeData.width, -n / mazeData.width, 0) + offset;
+	}
+
 	public void PrintPath()
 	{
 		if (FindPath(mazeData.targetDoorPos, 0)) {
+			foundPath = true;
 			int p = trace[0];
 			while (p != -1) {
-				Debug.Log(p);
+				p = trace[p];
+			}
+		}
+	}
+
+	public void AutoRun()
+	{
+		if (foundPath) {
+			Sequence seq = DOTween.Sequence();
+			int p = trace[0];
+			while (p != -1) {
+				seq.Append(bug.transform.DOMove(GetPositionCell(p), 0.25f).SetEase(Ease.Linear));
 				p = trace[p];
 			}
 		}
@@ -74,6 +92,7 @@ public class Maze : MonoBehaviour
 	readonly Queue<int> frontier = new Queue<int>(); // OPEN
 	readonly List<int> visited = new List<int>(); // CLOSE
 	[HideInInspector] public int[] trace = new int[1];
+	protected bool foundPath = false;
 
 	protected bool FindPath(int startInd, int endInd)
 	{
