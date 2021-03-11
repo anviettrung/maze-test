@@ -34,8 +34,10 @@ public class MazeGenerator : MonoBehaviour
 
 			maze.name = prefixName + (i + startIndexMaze).ToString();
 
+#if UNITY_EDITOR
 			AssetDatabase.CreateAsset(maze_asset, savingPath + maze.name + ".asset");
 			AssetDatabase.SaveAssets();
+#endif
 		}
 	}
 
