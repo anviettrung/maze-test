@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 public class MazeGenerator : MonoBehaviour
 {
@@ -71,8 +69,6 @@ public class MazeGenerator : MonoBehaviour
 
 		foreach (int nbID in nb)
 			AddFrontier(nbID);
-
-		Debug.Log(cellID + " " + frontier.Count);
 	}
 
 	protected void AddFrontier(int id)

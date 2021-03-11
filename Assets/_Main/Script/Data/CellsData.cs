@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu]
 public class CellsData : ScriptableObject
 {
-	
+	public Sprite[] Arts;
+	public SpriteRenderer Prefab;
 }

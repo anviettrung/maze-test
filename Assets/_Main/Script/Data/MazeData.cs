@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
@@ -20,11 +19,6 @@ public class MazeData : ScriptableObject
 
 	public bool IsValidID(int id) => (id >= 0) && (id < cells.Length);
 
-	public void RemoveEdge(int cellID, int direct)
-	{
-
-	}
-
 	public List<int> GetNeighbor(int cellID)
 	{
 		List<int> results = new List<int>();
@@ -39,16 +33,16 @@ public class MazeData : ScriptableObject
 
 	public void Connect(int cellA, int cellB)
 	{
-		if (cellA + width == cellB) { // B is bottom of A
+		if (cellA + width == cellB) { // B is South of A
 			cells[cellA] |= direct[2];
 			cells[cellB] |= direct[0];
-		} else if (cellA - width == cellB) {
+		} else if (cellA - width == cellB) { // B is Nouth of A
 			cells[cellA] |= direct[0];
 			cells[cellB] |= direct[2];
-		} else if (cellA + 1 == cellB) {
+		} else if (cellA + 1 == cellB) { // B is East of A
 			cells[cellA] |= direct[1];
 			cells[cellB] |= direct[3];
-		} else if (cellA - 1 == cellB) {
+		} else if (cellA - 1 == cellB) { // B is West of A
 			cells[cellA] |= direct[3];
 			cells[cellB] |= direct[1];
 		}

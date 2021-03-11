@@ -5,26 +5,26 @@ using UnityEngine;
 public class Maze : MonoBehaviour
 {
 	public MazeData mazeData;
+	public CellsData cellsData;
 
-
-	protected int[] direct = { 1, 2, 4, 8 };
-	public void GenerateMazeByPrim(MazeData maze)
+	private void Start()
 	{
-		maze.cells = new int[maze.width * maze.height];
-
-		bool[] marks = new bool[maze.width * maze.height];
-		Queue<int> frontier = new Queue<int>();
-
-		int firstCellID = Random.Range(0, maze.cells.Length);
-		marks[firstCellID] = true;
+		SpawnMaze();
 	}
 
-	protected int MarkCell(int id, int value, ref bool[] marker, ref Queue<int> _frontier)
+	public void SpawnMaze()
 	{
-		marker[id] = true;
+		Vector3 offset = new Vector3(-mazeData.width / 2.0f + 0.5f, mazeData.height / 2.0f - 0.5f, 0);
 
+		for (int y = 0; y < mazeData.height; y++) {
+			for (int x = 0; x < mazeData.width; x++) {
+				SpriteRenderer cell = Instantiate(cellsData.Prefab);
+				cell.name = "Cell[" + x +  "," + y + "]";
+				cell.transform.SetParent(this.transform);
+				cell.transform.localPosition = new Vector3(x, -y, 0) + offset;
 
-
-		return value | direct[Random.Range(0, 3)];
+				cell.sprite = cellsData.Arts[mazeData.GetCell(x, y)];
+			}
+		}
 	}
 }
