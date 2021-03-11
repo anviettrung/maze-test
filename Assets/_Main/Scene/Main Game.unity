@@ -724,7 +724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dfa7e448fc824300a268dfccb079df8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mazeData: {fileID: 11400000, guid: 151024885ddf74158a2fb37be0cbc247, type: 2}
+  mazeData: {fileID: 11400000, guid: 0d92031dae7a84355b2509531d257d11, type: 2}
   cellsData: {fileID: 11400000, guid: 82b9c421adc144ba099da5f1fba54440, type: 2}
   bugPrefab: {fileID: 2537836922280377628, guid: b6304ed590a464f4893765030138afa1,
     type: 3}
@@ -758,7 +758,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 10
   height: 13
-  maze: {fileID: 11400000, guid: 151024885ddf74158a2fb37be0cbc247, type: 2}
+  startIndexMaze: 0
+  genCount: 0
+  prefixName: 
+  savingPath: 
 --- !u!1 &1172869060
 GameObject:
   m_ObjectHideFlags: 0

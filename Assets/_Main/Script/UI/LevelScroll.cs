@@ -1,19 +1,23 @@
 ﻿using Mopsicus.InfiniteScroll;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using TMPro;
 
 public class LevelScroll : MonoBehaviour
 {
-
 	[SerializeField]
 	private InfiniteScroll Scroll;
 
 	private int Count = 100;
 	public int height = 400;
 
-	public int unlocked = 15;
+	protected int unlocked = 15;
 	public int limitLevel = 50;
+
+	private void Awake()
+	{
+		unlocked = Random.Range(5, limitLevel - 1);
+	}
 
 	void Start()
 	{
@@ -28,20 +32,14 @@ public class LevelScroll : MonoBehaviour
 	{
 		LevelRowUI row = item.GetComponent<LevelRowUI>();
 
-		if (index % 2 == 0) {
-			for (int i = 0; i < row.levelItems.Count; i++) {
-				int realInd = index * 4 + i;
-				row.levelItems[i].SetLevelNum(realInd, limitLevel);
-				// Set Star
-				row.levelItems[i].SetUnlockUI(realInd < unlocked);
-			}
-		} else {
-			for (int i = 0; i < row.levelItems.Count; i++) {
-				int realInd = index * 4 + (3 - i);
-				row.levelItems[i].SetLevelNum(realInd, limitLevel);
-				// Set Star
-				row.levelItems[i].SetUnlockUI(realInd < unlocked);
-			}
+		for (int i = 0; i < row.levelItems.Count; i++) {
+			int realInd = index * 4;
+			realInd += index % 2 == 0 ? i : (3 - i);
+			row.levelItems[i].SetLevelNum(realInd, limitLevel);
+
+			// In real publish game. We will get star count from database
+			row.levelItems[i].SetStar(Random.Range(1, 3));
+			row.levelItems[i].SetUnlockUI(realInd < unlocked);
 		}
 	}
 
