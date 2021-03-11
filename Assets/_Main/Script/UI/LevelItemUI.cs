@@ -13,6 +13,8 @@ public class LevelItemUI : MonoBehaviour
 
 	public GameObject tutorial;
 
+	[HideInInspector] public int levelID = 0;
+
 	public void SetStar(int n)
 	{
 		for (int i = 0; i < stars.Length; i++)
@@ -30,6 +32,7 @@ public class LevelItemUI : MonoBehaviour
 			gameObject.SetActive(false);
 			return;
 		} else {
+			levelID = n;
 			gameObject.SetActive(true);
 		}
 
@@ -48,6 +51,14 @@ public class LevelItemUI : MonoBehaviour
 		if (n == limit - 1) {
 			lineH.SetActive(false);
 			lineV.SetActive(false);
+		}
+	}
+
+	public void PlayLevel()
+	{
+		if (lockUI.activeInHierarchy == false) {
+			if (GameManager.IsExist)
+				GameManager.Instance.PlayLevel(levelID);
 		}
 	}
 }

@@ -11,7 +11,7 @@ public class Gameplay : MonoBehaviour
 	{
 		if (GameManager.IsExist) {
 			GameManager.Instance.m_Gameplay = this;
-			GameManager.Instance.ReplayLevel();
+			//GameManager.Instance.ReplayLevel();
 		} else {
 			SpawnMaze();
 		}
@@ -26,5 +26,24 @@ public class Gameplay : MonoBehaviour
 			m_Maze.ReloadMaze();
 		}
 
+	}
+
+	public void BackToMainMenu()
+	{
+		if (GameManager.IsExist)
+			GameManager.Instance.m_UIManager.gameObject.SetActive(true);
+	}
+
+	public void Retry()
+	{
+		SpawnMaze();
+	}
+
+	public void Continue()
+	{
+		if (GameManager.IsExist)
+			GameManager.Instance.PlayNextLevel();
+		else
+			SpawnMaze();
 	}
 }

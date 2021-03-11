@@ -371,6 +371,37 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 83690203}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &121147998
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 121147999}
+  m_Layer: 0
+  m_Name: Auto Load Scene
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &121147999
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121147998}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2114935418}
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &272259931
 GameObject:
   m_ObjectHideFlags: 0
@@ -3093,7 +3124,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1513760154}
   - component: {fileID: 1513760156}
-  - component: {fileID: 1513760155}
   m_Layer: 5
   m_Name: Camera
   m_TagString: Untagged
@@ -3120,14 +3150,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!81 &1513760155
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1513760153}
-  m_Enabled: 1
 --- !u!20 &1513760156
 Camera:
   m_ObjectHideFlags: 0
@@ -4591,6 +4613,54 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2074850603}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2114935417
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2114935418}
+  - component: {fileID: 2114935419}
+  m_Layer: 0
+  m_Name: Main Game
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2114935418
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114935417}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 121147999}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2114935419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114935417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49dc134599ddc4e6ba5b902365b4ca08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadOnStart: 1
+  allowReload: 0
+  setActiveAfterLoad: 1
+  autoUnload: 1
+  disableLoaderAfterLoadScene: 1
 --- !u!114 &6266625660668186368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4874,6 +4944,7 @@ GameObject:
   - component: {fileID: 7501045876543262863}
   - component: {fileID: 7500918734021214813}
   - component: {fileID: 7604946472007357226}
+  - component: {fileID: 7604946472007357227}
   m_Layer: 5
   m_Name: Reponsive Canvas
   m_TagString: Untagged
@@ -4895,8 +4966,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Scroll: {fileID: 305819277}
   height: 300
-  unlocked: 100
+  unlocked: 15
   limitLevel: 50
+--- !u!114 &7604946472007357227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7604946472007357225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 381bfed2fd3cf45049a050b4f86155a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelScroll: {fileID: 7604946472007357226}
 --- !u!224 &7679030512967944963
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4964,5 +5048,5 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0

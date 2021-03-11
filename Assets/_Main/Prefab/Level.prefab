@@ -133,7 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -288,6 +288,7 @@ MonoBehaviour:
   - {fileID: 6373174479664005490}
   - {fileID: 6373174478975818475}
   tutorial: {fileID: 3480006781358366418}
+  levelID: 0
 --- !u!1 &6373174479664005490
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,7 +554,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6373174480290114888}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8824816019860164508}
+        m_MethodName: PlayLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6373174480465864052
 GameObject:
   m_ObjectHideFlags: 0

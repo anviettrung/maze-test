@@ -26,10 +26,7 @@ public class Maze : MonoBehaviour
 		}
 
 		bug.transform.localPosition = offset;
-		targetDoor.transform.localPosition =
-			new Vector3(mazeData.targetDoorPos % mazeData.width,
-						mazeData.targetDoorPos / mazeData.width,
-						0) + offset;
+		targetDoor.transform.localPosition = GetPositionCell(mazeData.targetDoorPos);
 	}
 
 	public void SpawnMaze()

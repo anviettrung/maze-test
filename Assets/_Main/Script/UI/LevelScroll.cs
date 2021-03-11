@@ -11,15 +11,10 @@ public class LevelScroll : MonoBehaviour
 	private int Count = 100;
 	public int height = 400;
 
-	protected int unlocked = 15;
+	[HideInInspector] public int unlocked = 15;
 	public int limitLevel = 50;
 
-	private void Awake()
-	{
-		unlocked = Random.Range(5, limitLevel - 1);
-	}
-
-	void Start()
+	public void Init()
 	{
 		Scroll.OnFill += OnFillItem;
 		Scroll.OnHeight += OnHeightItem;
@@ -38,7 +33,7 @@ public class LevelScroll : MonoBehaviour
 			row.levelItems[i].SetLevelNum(realInd, limitLevel);
 
 			// In real publish game. We will get star count from database
-			row.levelItems[i].SetStar(Random.Range(1, 3));
+			row.levelItems[i].SetStar(realInd < unlocked ? Random.Range(1, 3) : 0);
 			row.levelItems[i].SetUnlockUI(realInd < unlocked);
 		}
 	}

@@ -13,6 +13,13 @@ public class GameManager : Singleton<GameManager>
 			gameplay = value;
 		}
 	}
+	protected UIManager uiManager;
+	public UIManager m_UIManager {
+		get => uiManager;
+		set {
+			uiManager = value;
+		}
+	}
 
 	private void Awake()
 	{
@@ -32,6 +39,9 @@ public class GameManager : Singleton<GameManager>
 
 		m_Gameplay.m_Maze.mazeData = mazeList.mazes[curLevelID];
 		m_Gameplay.SpawnMaze();
+
+		if (uiManager != null)
+			uiManager.gameObject.SetActive(false);
 	}
 
 
