@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Maze : MonoBehaviour
@@ -7,13 +6,28 @@ public class Maze : MonoBehaviour
 	public MazeData mazeData;
 	public CellsData cellsData;
 	public GameObject bugPrefab;
-	public GameObject targetDoor;
+	public GameObject targetDoorPrefab;
 
 	protected Vector3 offset;
 
-	private void Start()
+	protected List<SpriteRenderer> cellRend = new List<SpriteRenderer>();
+	protected GameObject bug;
+	protected GameObject targetDoor;
+
+	public void ReloadMaze()
 	{
-		SpawnMaze();
+		for (int y = 0; y < mazeData.height; y++) {
+			for (int x = 0; x < mazeData.width; x++) {
+				SpriteRenderer cell = cellRend[y * mazeData.width + x];
+				cell.sprite = cellsData.Arts[mazeData.GetCell(x, y)];
+			}
+		}
+
+		bug.transform.localPosition = offset;
+		targetDoor.transform.localPosition =
+			new Vector3(mazeData.targetDoorPos % mazeData.width,
+						mazeData.targetDoorPos / mazeData.width,
+						0) + offset;
 	}
 
 	public void SpawnMaze()
@@ -25,19 +39,21 @@ public class Maze : MonoBehaviour
 				SpriteRenderer cell = SpawnEntity(cellsData.Prefab.gameObject, x, y).GetComponent<SpriteRenderer>();
 				cell.name = "Cell[" + x +  "," + y + "]";
 				cell.sprite = cellsData.Arts[mazeData.GetCell(x, y)];
+
+				cellRend.Add(cell);
 			}
 		}
 
 		SpawnEntity(bugPrefab, 0, 0);
 
-		SpawnEntity(targetDoor, mazeData.targetDoorPos % mazeData.width, mazeData.targetDoorPos / mazeData.width);
+		SpawnEntity(targetDoorPrefab, mazeData.targetDoorPos % mazeData.width, mazeData.targetDoorPos / mazeData.width);
 	}
 
 	public GameObject SpawnEntity(GameObject prefab, int x, int y)
 	{
 		var clone = Instantiate(prefab);
 		clone.transform.SetParent(this.transform);
-		clone.transform.position = new Vector3(x, -y, 0) + offset;
+		clone.transform.localPosition = new Vector3(x, -y, 0) + offset;
 
 		return clone;
 	}
