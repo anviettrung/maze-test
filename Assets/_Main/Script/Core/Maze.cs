@@ -9,6 +9,9 @@ public class Maze : MonoBehaviour
 	public CellsData cellsData;
 	public GameObject bugPrefab;
 	public GameObject targetDoorPrefab;
+	public GameObject linePrefab;
+	public Transform guideLineHolder;
+	protected List<Transform> lines = new List<Transform>();
 
 	protected Vector3 offset;
 
@@ -28,6 +31,9 @@ public class Maze : MonoBehaviour
 		if (seq != null) seq.Kill();
 		bug.transform.localPosition = offset;
 		targetDoor.transform.localPosition = GetPositionCell(mazeData.targetDoorPos);
+
+		for (int i = 0; i < lines.Count; i++)
+			lines[i].gameObject.SetActive(false);
 	}
 
 	public void SpawnMaze()
@@ -103,12 +109,35 @@ public class Maze : MonoBehaviour
 		return false;
 	}
 
+	public void SetLine(int ind, int from, int to)
+	{
+		if (to == -1) return;
+
+		while (ind >= lines.Count) {
+			var clone = Instantiate(linePrefab);
+			clone.transform.SetParent(guideLineHolder);
+			clone.gameObject.SetActive(false);
+			lines.Add(clone.transform);
+		}
+
+		lines[ind].localPosition = (GetPositionCell(from) + GetPositionCell(to)) / 2;
+		if (Mathf.Abs(from - to) == 1)
+			lines[ind].localEulerAngles = Vector3.zero;
+		else
+			lines[ind].localEulerAngles = Vector3.forward * 90;
+
+		lines[ind].gameObject.SetActive(true);
+	}
+
 	public void PrintPath()
 	{
+		int k = 0;
 		if (FindPath(mazeData.targetDoorPos, 0)) {
 			foundPath = true;
 			int p = trace[0];
+			SetLine(k, 0, p); k++;
 			while (p != -1) {
+				SetLine(k, p, trace[p]); k++;
 				p = trace[p];
 			}
 		}
