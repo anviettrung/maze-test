@@ -25,6 +25,7 @@ public class Maze : MonoBehaviour
 			}
 		}
 
+		if (seq != null) seq.Kill();
 		bug.transform.localPosition = offset;
 		targetDoor.transform.localPosition = GetPositionCell(mazeData.targetDoorPos);
 	}
@@ -62,36 +63,14 @@ public class Maze : MonoBehaviour
 		return new Vector3(n % mazeData.width, -n / mazeData.width, 0) + offset;
 	}
 
-	public void PrintPath()
-	{
-		if (FindPath(mazeData.targetDoorPos, 0)) {
-			foundPath = true;
-			int p = trace[0];
-			while (p != -1) {
-				p = trace[p];
-			}
-		}
-	}
-
-	public void AutoRun()
-	{
-		if (foundPath) {
-			Sequence seq = DOTween.Sequence();
-			int p = trace[0];
-			while (p != -1) {
-				seq.Append(bug.transform.DOMove(GetPositionCell(p), 0.25f).SetEase(Ease.Linear));
-				p = trace[p];
-			}
-		}
-	}
-
 	// ====== Pathfinding ======
 	readonly Queue<int> frontier = new Queue<int>(); // OPEN
 	readonly List<int> visited = new List<int>(); // CLOSE
 	[HideInInspector] public int[] trace = new int[1];
-	protected bool foundPath = false;
+	[HideInInspector] public bool foundPath = false;
+	[HideInInspector] public Sequence seq;
 
-	protected bool FindPath(int startInd, int endInd)
+	public bool FindPath(int startInd, int endInd)
 	{
 		if (trace.Length != mazeData.cells.Length)
 			trace = new int[mazeData.cells.Length];
@@ -124,5 +103,27 @@ public class Maze : MonoBehaviour
 		return false;
 	}
 
+	public void PrintPath()
+	{
+		if (FindPath(mazeData.targetDoorPos, 0)) {
+			foundPath = true;
+			int p = trace[0];
+			while (p != -1) {
+				p = trace[p];
+			}
+		}
+	}
+
+	public void AutoRun()
+	{
+		if (foundPath) {
+			seq = DOTween.Sequence();
+			int p = trace[0];
+			while (p != -1) {
+				seq.Append(bug.transform.DOMove(GetPositionCell(p), 0.25f).SetEase(Ease.Linear));
+				p = trace[p];
+			}
+		}
+	}
 	// ==============================
 }
