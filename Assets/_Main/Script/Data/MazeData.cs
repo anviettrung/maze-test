@@ -32,6 +32,18 @@ public class MazeData : ScriptableObject
 		return results;
 	}
 
+	public List<int> GetConnectNeighbor(int cellID)
+	{
+		List<int> results = new List<int>();
+
+		if ((cells[cellID] & direct[0]) > 0) results.Add(cellID - width);
+		if ((cells[cellID] & direct[1]) > 0) results.Add(cellID + 1);
+		if ((cells[cellID] & direct[2]) > 0) results.Add(cellID + width);
+		if ((cells[cellID] & direct[3]) > 0) results.Add(cellID - 1);
+
+		return results;
+	}
+
 	public void Connect(int cellA, int cellB)
 	{
 		if (cellA + width == cellB) { // B is South of A

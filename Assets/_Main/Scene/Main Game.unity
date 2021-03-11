@@ -201,7 +201,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 220898424}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1149906599}
+        m_MethodName: PrintPath
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &220898424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -730,6 +741,7 @@ MonoBehaviour:
     type: 3}
   targetDoorPrefab: {fileID: 9064635363353936051, guid: 93908481ace984de98a9fdd54731814a,
     type: 3}
+  trace: 00000000
 --- !u!4 &1149906600
 Transform:
   m_ObjectHideFlags: 0

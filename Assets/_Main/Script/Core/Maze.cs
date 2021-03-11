@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Maze : MonoBehaviour
@@ -57,4 +58,55 @@ public class Maze : MonoBehaviour
 
 		return clone;
 	}
+
+	public void PrintPath()
+	{
+		if (FindPath(mazeData.targetDoorPos, 0)) {
+			int p = trace[0];
+			while (p != -1) {
+				Debug.Log(p);
+				p = trace[p];
+			}
+		}
+	}
+
+	// ====== Pathfinding ======
+	readonly Queue<int> frontier = new Queue<int>(); // OPEN
+	readonly List<int> visited = new List<int>(); // CLOSE
+	[HideInInspector] public int[] trace = new int[1];
+
+	protected bool FindPath(int startInd, int endInd)
+	{
+		if (trace.Length != mazeData.cells.Length)
+			trace = new int[mazeData.cells.Length];
+
+		for (int i = 0; i < trace.Length; i++)
+			trace[i] = -1;
+
+		visited.Clear();
+		frontier.Clear();
+
+		frontier.Enqueue(startInd);
+
+		int p;
+		while (frontier.Count > 0) {
+			p = frontier.Dequeue();
+
+			if (p == endInd)
+				return true; // End
+
+			visited.Add(p);
+			foreach(int nb in mazeData.GetConnectNeighbor(p)) {
+				if (!visited.Contains(nb) && !frontier.Contains(nb)) {
+					frontier.Enqueue(nb);
+				
+					trace[nb] = p; // previous nb is p;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	// ==============================
 }
