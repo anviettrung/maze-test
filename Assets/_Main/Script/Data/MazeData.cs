@@ -7,6 +7,7 @@ public class MazeData : ScriptableObject
 	public int width = 10;
 	public int height = 13;
 	public int[] cells = new int[130];
+	public int targetDoorPos = 1;
 
 	protected readonly static int[] direct = { 1, 2, 4, 8 }; // N E S W
 

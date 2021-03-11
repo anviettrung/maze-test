@@ -11,11 +11,10 @@ public class MazeGenerator : MonoBehaviour
 	protected bool[] marks;
 	protected List<int> frontier = new List<int>();
 
-	protected int[] direct = { 1, 2, 4, 8 };
-
 	private void Start()
 	{
 		GenerateMazeByPrim(Random.Range(0, width * height - 1));
+		maze.targetDoorPos = Random.Range(1, width * height);
 	}
 
 	public void Init()

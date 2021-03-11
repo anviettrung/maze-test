@@ -7,6 +7,8 @@ public class Maze : MonoBehaviour
 	public MazeData mazeData;
 	public CellsData cellsData;
 	public GameObject bugPrefab;
+	public GameObject targetDoor;
+
 	protected Vector3 offset;
 
 	private void Start()
@@ -27,6 +29,8 @@ public class Maze : MonoBehaviour
 		}
 
 		SpawnEntity(bugPrefab, 0, 0);
+
+		SpawnEntity(targetDoor, mazeData.targetDoorPos % mazeData.width, mazeData.targetDoorPos / mazeData.width);
 	}
 
 	public GameObject SpawnEntity(GameObject prefab, int x, int y)
