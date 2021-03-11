@@ -4894,8 +4894,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Scroll: {fileID: 305819277}
-  Count: 50
   height: 300
+  unlocked: 100
+  limitLevel: 50
 --- !u!224 &7679030512967944963
 RectTransform:
   m_ObjectHideFlags: 0

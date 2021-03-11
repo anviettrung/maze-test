@@ -1,20 +1,42 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class MazeGenerator : MonoBehaviour
 {
+	[Header("Basic Settings")]
 	public int width;
 	public int height;
 
-	public MazeData maze;
+	[Header("Generate Settings")]
+	public int startIndexMaze;
+	public int genCount;
+	public string prefixName;
+	public string savingPath;
 
+	protected MazeData maze;
 	protected bool[] marks;
 	protected List<int> frontier = new List<int>();
 
 	private void Start()
 	{
-		GenerateMazeByPrim(Random.Range(0, width * height - 1));
-		maze.targetDoorPos = Random.Range(1, width * height);
+		LazyGenerateHugeMaze();
+	}
+
+	public void LazyGenerateHugeMaze()
+	{
+		for (int i = 0; i < genCount; i++) {
+			MazeData maze_asset = ScriptableObject.CreateInstance<MazeData>();
+
+			maze = maze_asset;
+			GenerateMazeByPrim(Random.Range(0, width * height - 1));
+			maze.targetDoorPos = Random.Range(1, width * height);
+
+			maze.name = prefixName + (i + startIndexMaze).ToString();
+
+			AssetDatabase.CreateAsset(maze_asset, savingPath + maze.name + ".asset");
+			AssetDatabase.SaveAssets();
+		}
 	}
 
 	public void Init()
